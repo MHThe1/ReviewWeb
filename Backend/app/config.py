@@ -7,6 +7,7 @@ class Settings(BaseSettings):
     jwt_secret_key: str = "super-secret-key-change-me"
     jwt_algorithm: str = "HS256"
     jwt_expire_minutes: int = 60
+    cors_origins: str = "http://localhost:3000"
 
     class Config:
         env_file = ".env"

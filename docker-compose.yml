@@ -28,6 +28,7 @@ services:
       JWT_SECRET_KEY: ${JWT_SECRET_KEY:-super-secret-key-change-me}
       JWT_ALGORITHM: ${JWT_ALGORITHM:-HS256}
       JWT_EXPIRE_MINUTES: ${JWT_EXPIRE_MINUTES:-60}
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:3000}
     volumes:
       - ./backend/app:/app/app
     depends_on:
