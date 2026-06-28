@@ -64,8 +64,17 @@ export async function getMe(token?: string): Promise<User> {
 }
 
 // Products
-export async function getProducts(): Promise<Product[]> {
-  const res = await api.get<Product[]>("/products");
+export interface ProductFilters {
+  search?: string;
+  min_rating?: number;
+}
+
+export async function getProducts(filters?: ProductFilters): Promise<Product[]> {
+  const params: Record<string, string> = {};
+  if (filters?.search) params.search = filters.search;
+  if (filters?.min_rating) params.min_rating = String(filters.min_rating);
+
+  const res = await api.get<Product[]>("/products", { params });
   return res.data;
 }
 
