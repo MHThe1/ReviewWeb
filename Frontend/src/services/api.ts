@@ -26,6 +26,26 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
+// Extract readable error messages from backend responses
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    const detail = error.response?.data?.detail;
+
+    let message: string;
+    if (typeof detail === "string") {
+      message = detail;
+    } else if (Array.isArray(detail)) {
+      // Pydantic validation errors: pick first one
+      message = detail[0]?.msg || "Validation error";
+    } else {
+      message = "Something went wrong";
+    }
+
+    return Promise.reject(new Error(message));
+  }
+);
+
 // Auth
 export async function login(data: LoginData): Promise<TokenResponse> {
   const res = await api.post<TokenResponse>("/auth/login", data);
@@ -37,8 +57,9 @@ export async function register(data: RegisterData): Promise<TokenResponse> {
   return res.data;
 }
 
-export async function getMe(): Promise<User> {
-  const res = await api.get<User>("/auth/me");
+export async function getMe(token?: string): Promise<User> {
+  const headers = token ? { Authorization: `Bearer ${token}` } : undefined;
+  const res = await api.get<User>("/auth/me", { headers });
   return res.data;
 }
 

@@ -49,7 +49,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const res = await api.login(data);
     localStorage.setItem("token", res.access_token);
     setToken(res.access_token);
-    const me = await api.getMe();
+    const me = await api.getMe(res.access_token);
     setUser(me);
   }, []);
 
@@ -57,7 +57,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const res = await api.register(data);
     localStorage.setItem("token", res.access_token);
     setToken(res.access_token);
-    const me = await api.getMe();
+    const me = await api.getMe(res.access_token);
     setUser(me);
   }, []);
 
