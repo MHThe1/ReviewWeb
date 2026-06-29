@@ -36,14 +36,13 @@ export default function HomePage() {
     }
   }, [debouncedSearch, minRating]);
 
-  // Fetch on mount and when filters change
   useEffect(() => {
     fetchProducts();
   }, [fetchProducts]);
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold text-gray-900 mb-6">Products</h1>
+      <h1 className="text-3xl font-bold text-stone-900 mb-6">Products</h1>
 
       {/* Search & Filter bar */}
       <div className="flex flex-col sm:flex-row gap-3 mb-8">
@@ -53,10 +52,10 @@ export default function HomePage() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search products..."
-            className="w-full border border-gray-300 rounded-lg pl-10 pr-3 py-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full bg-white border border-stone-300 rounded-lg pl-10 pr-3 py-2 text-stone-900 placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent shadow-sm"
           />
           <svg
-            className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+            className="absolute left-3 top-1/2 -translate-y-1/2 text-stone-400"
             width="18"
             height="18"
             viewBox="0 0 24 24"
@@ -74,7 +73,7 @@ export default function HomePage() {
         <select
           value={minRating}
           onChange={(e) => setMinRating(e.target.value)}
-          className="border border-gray-300 rounded-lg px-3 py-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent cursor-pointer"
+          className="bg-white border border-stone-300 rounded-lg px-3 py-2 text-stone-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent cursor-pointer shadow-sm"
         >
           <option value="">Any rating</option>
           <option value="2">2+ stars</option>
@@ -90,13 +89,13 @@ export default function HomePage() {
           {Array.from({ length: 6 }).map((_, i) => (
             <div
               key={i}
-              className="bg-white rounded-xl border border-gray-200 overflow-hidden animate-pulse"
+              className="bg-white rounded-xl border border-stone-200 overflow-hidden shadow-sm animate-pulse"
             >
-              <div className="h-48 bg-gray-200" />
+              <div className="h-48 bg-stone-200" />
               <div className="p-4 space-y-3">
-                <div className="h-5 bg-gray-200 rounded w-3/4" />
-                <div className="h-4 bg-gray-200 rounded w-1/2" />
-                <div className="h-4 bg-gray-200 rounded w-1/3" />
+                <div className="h-5 bg-stone-200 rounded w-3/4" />
+                <div className="h-4 bg-stone-200 rounded w-1/2" />
+                <div className="h-4 bg-stone-200 rounded w-1/3" />
               </div>
             </div>
           ))}
@@ -106,15 +105,15 @@ export default function HomePage() {
           <p className="text-red-600">{error}</p>
         </div>
       ) : products.length === 0 ? (
-        <div className="bg-gray-50 border border-gray-200 rounded-lg p-8 text-center">
-          <p className="text-gray-500 text-lg">No products found.</p>
+        <div className="bg-white border border-stone-200 rounded-lg p-8 text-center shadow-sm">
+          <p className="text-stone-500 text-lg">No products found.</p>
           {(search || minRating) && (
             <button
               onClick={() => {
                 setSearch("");
                 setMinRating("");
               }}
-              className="text-blue-600 hover:underline mt-2 cursor-pointer"
+              className="text-indigo-600 hover:text-indigo-800 mt-2 cursor-pointer font-medium"
             >
               Clear filters
             </button>
@@ -126,9 +125,9 @@ export default function HomePage() {
             <Link
               key={product.id}
               href={`/products/${product.id}`}
-              className="bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow"
+              className="bg-white rounded-xl border border-stone-200 overflow-hidden shadow-sm hover:shadow-md transition-shadow"
             >
-              <div className="h-48 bg-gray-100 flex items-center justify-center">
+              <div className="h-48 bg-stone-100 flex items-center justify-center">
                 {product.image_url ? (
                   <img
                     src={product.image_url}
@@ -136,11 +135,11 @@ export default function HomePage() {
                     className="h-full w-full object-cover"
                   />
                 ) : (
-                  <span className="text-gray-400 text-4xl">📦</span>
+                  <span className="text-stone-300 text-4xl">📦</span>
                 )}
               </div>
               <div className="p-4">
-                <h2 className="text-lg font-semibold text-gray-900 mb-2">
+                <h2 className="text-lg font-semibold text-stone-900 mb-2">
                   {product.title}
                 </h2>
                 <div className="flex items-center gap-2 mb-1">
@@ -148,11 +147,11 @@ export default function HomePage() {
                     rating={Math.round(product.average_rating || 0)}
                     size="sm"
                   />
-                  <span className="text-sm font-medium text-gray-700">
+                  <span className="text-sm font-medium text-stone-700">
                     {product.average_rating?.toFixed(1) ?? "N/A"}
                   </span>
                 </div>
-                <p className="text-sm text-gray-500">
+                <p className="text-sm text-stone-400">
                   {product.review_count}{" "}
                   {product.review_count === 1 ? "Review" : "Reviews"}
                 </p>

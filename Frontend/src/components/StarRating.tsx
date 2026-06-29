@@ -42,7 +42,7 @@ export default function StarRating({
               interactive
                 ? "cursor-pointer hover:scale-110 transition-transform"
                 : "cursor-default"
-            } ${filled ? "text-yellow-400" : "text-gray-300"}`}
+            } ${filled ? "text-amber-400" : "text-stone-300"}`}
             onClick={() => interactive && onChange?.(starIndex)}
             onMouseEnter={() => interactive && setHovered(starIndex)}
             onMouseLeave={() => interactive && setHovered(0)}

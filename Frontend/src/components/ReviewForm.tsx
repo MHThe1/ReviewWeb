@@ -38,8 +38,8 @@ export default function ReviewForm({ productId, onSuccess }: ReviewFormProps) {
   }
 
   return (
-    <div className="bg-white border border-gray-200 rounded-xl p-6">
-      <h3 className="text-lg font-semibold text-gray-900 mb-4">Write a Review</h3>
+    <div className="bg-white border border-stone-200 rounded-xl p-6 shadow-sm">
+      <h3 className="text-lg font-semibold text-stone-900 mb-4">Write a Review</h3>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         {error && (
@@ -49,14 +49,14 @@ export default function ReviewForm({ productId, onSuccess }: ReviewFormProps) {
         )}
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="block text-sm font-medium text-stone-700 mb-1">
             Rating
           </label>
           <StarRating rating={rating} interactive onChange={setRating} size="lg" />
         </div>
 
         <div>
-          <label htmlFor="comment" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="comment" className="block text-sm font-medium text-stone-700 mb-1">
             Comment
           </label>
           <textarea
@@ -65,7 +65,7 @@ export default function ReviewForm({ productId, onSuccess }: ReviewFormProps) {
             rows={3}
             value={comment}
             onChange={(e) => setComment(e.target.value)}
-            className="w-full border border-gray-300 rounded-lg px-3 py-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full border border-stone-300 rounded-lg px-3 py-2 text-stone-900 placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
             placeholder="Share your thoughts about this product..."
           />
         </div>
@@ -73,7 +73,7 @@ export default function ReviewForm({ productId, onSuccess }: ReviewFormProps) {
         <button
           type="submit"
           disabled={submitting}
-          className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+          className="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer font-medium"
         >
           {submitting ? "Submitting..." : "Submit Review"}
         </button>

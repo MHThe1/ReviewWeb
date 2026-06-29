@@ -134,8 +134,8 @@ export default function AdminPage() {
     return (
       <div className="max-w-6xl mx-auto px-4 py-8">
         <div className="animate-pulse space-y-4">
-          <div className="h-8 bg-gray-200 rounded w-1/4" />
-          <div className="h-64 bg-gray-200 rounded-xl" />
+          <div className="h-8 bg-stone-200 rounded w-1/4" />
+          <div className="h-64 bg-stone-200 rounded-xl" />
         </div>
       </div>
     );
@@ -145,16 +145,16 @@ export default function AdminPage() {
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold text-gray-900 mb-6">Admin Panel</h1>
+      <h1 className="text-3xl font-bold text-stone-900 mb-6">Admin Panel</h1>
 
       {/* Tabs */}
-      <div className="flex gap-4 mb-6 border-b border-gray-200">
+      <div className="flex gap-4 mb-6 border-b border-stone-200">
         <button
           onClick={() => setActiveTab("products")}
           className={`pb-3 px-1 text-sm font-medium border-b-2 transition-colors cursor-pointer ${
             activeTab === "products"
-              ? "border-blue-600 text-blue-600"
-              : "border-transparent text-gray-500 hover:text-gray-700"
+              ? "border-indigo-600 text-indigo-600"
+              : "border-transparent text-stone-400 hover:text-stone-600"
           }`}
         >
           Products ({products.length})
@@ -163,8 +163,8 @@ export default function AdminPage() {
           onClick={() => setActiveTab("users")}
           className={`pb-3 px-1 text-sm font-medium border-b-2 transition-colors cursor-pointer ${
             activeTab === "users"
-              ? "border-blue-600 text-blue-600"
-              : "border-transparent text-gray-500 hover:text-gray-700"
+              ? "border-indigo-600 text-indigo-600"
+              : "border-transparent text-stone-400 hover:text-stone-600"
           }`}
         >
           Users ({users.length})
@@ -175,8 +175,8 @@ export default function AdminPage() {
       {activeTab === "products" && (
         <div className="space-y-8">
           {/* Add Product Form */}
-          <div className="bg-white border border-gray-200 rounded-xl p-6">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">
+          <div className="bg-white border border-stone-200 rounded-xl p-6 shadow-sm">
+            <h2 className="text-lg font-semibold text-stone-900 mb-4">
               Add Product
             </h2>
             <form onSubmit={handleAddProduct} className="space-y-4">
@@ -192,27 +192,27 @@ export default function AdminPage() {
                   placeholder="Product title"
                   value={newTitle}
                   onChange={(e) => setNewTitle(e.target.value)}
-                  className="border border-gray-300 rounded-lg px-3 py-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="border border-stone-300 rounded-lg px-3 py-2 text-stone-900 placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 />
                 <input
                   type="text"
                   placeholder="Description (optional)"
                   value={newDescription}
                   onChange={(e) => setNewDescription(e.target.value)}
-                  className="border border-gray-300 rounded-lg px-3 py-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="border border-stone-300 rounded-lg px-3 py-2 text-stone-900 placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 />
                 <input
                   type="url"
                   placeholder="Image URL (optional)"
                   value={newImageUrl}
                   onChange={(e) => setNewImageUrl(e.target.value)}
-                  className="border border-gray-300 rounded-lg px-3 py-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="border border-stone-300 rounded-lg px-3 py-2 text-stone-900 placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 />
               </div>
               <button
                 type="submit"
                 disabled={adding}
-                className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 cursor-pointer"
+                className="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 transition-colors disabled:opacity-50 cursor-pointer font-medium"
               >
                 {adding ? "Adding..." : "Add Product"}
               </button>
@@ -224,7 +224,7 @@ export default function AdminPage() {
             {products.map((product) => (
               <div
                 key={product.id}
-                className="bg-white border border-gray-200 rounded-lg p-4 flex items-center justify-between gap-4"
+                className="bg-white border border-stone-200 rounded-lg p-4 flex items-center justify-between gap-4 shadow-sm"
               >
                 <div className="flex items-center gap-4 min-w-0">
                   {product.image_url ? (
@@ -234,12 +234,12 @@ export default function AdminPage() {
                       className="w-16 h-16 rounded object-cover shrink-0"
                     />
                   ) : (
-                    <div className="w-16 h-16 rounded bg-gray-100 flex items-center justify-center shrink-0">
+                    <div className="w-16 h-16 rounded bg-stone-100 flex items-center justify-center shrink-0">
                       📦
                     </div>
                   )}
                   <div className="min-w-0">
-                    <h3 className="font-medium text-gray-900 truncate">
+                    <h3 className="font-medium text-stone-900 truncate">
                       {product.title}
                     </h3>
                     <div className="flex items-center gap-2">
@@ -247,7 +247,7 @@ export default function AdminPage() {
                         rating={Math.round(product.average_rating || 0)}
                         size="sm"
                       />
-                      <span className="text-sm text-gray-500">
+                      <span className="text-sm text-stone-400">
                         {product.review_count} reviews
                       </span>
                     </div>
@@ -256,7 +256,7 @@ export default function AdminPage() {
                 <div className="flex gap-2 shrink-0">
                   <button
                     onClick={() => handleLoadReviews(product.id)}
-                    className="text-sm text-blue-600 hover:underline cursor-pointer"
+                    className="text-sm text-indigo-600 hover:text-indigo-800 cursor-pointer font-medium"
                   >
                     Reviews
                   </button>
@@ -264,7 +264,7 @@ export default function AdminPage() {
                     onClick={() =>
                       handleDeleteProduct(product.id, product.title)
                     }
-                    className="text-sm text-red-600 hover:underline cursor-pointer"
+                    className="text-sm text-red-500 hover:text-red-700 cursor-pointer font-medium"
                   >
                     Delete
                   </button>
@@ -273,11 +273,11 @@ export default function AdminPage() {
             ))}
           </div>
 
-          {/* Review Management Modal */}
+          {/* Review Management */}
           {selectedProduct && (
-            <div className="bg-gray-50 border border-gray-200 rounded-xl p-6">
+            <div className="bg-stone-50 border border-stone-200 rounded-xl p-6">
               <div className="flex items-center justify-between mb-4">
-                <h2 className="text-lg font-semibold text-gray-900">
+                <h2 className="text-lg font-semibold text-stone-900">
                   Reviews for Product #{selectedProduct}
                 </h2>
                 <button
@@ -285,32 +285,32 @@ export default function AdminPage() {
                     setSelectedProduct(null);
                     setProductReviews([]);
                   }}
-                  className="text-gray-500 hover:text-gray-700 cursor-pointer"
+                  className="text-stone-400 hover:text-stone-600 cursor-pointer"
                 >
                   ✕ Close
                 </button>
               </div>
               {productReviews.length === 0 ? (
-                <p className="text-gray-500">No reviews.</p>
+                <p className="text-stone-400">No reviews.</p>
               ) : (
                 <div className="space-y-3">
                   {productReviews.map((r) => (
                     <div
                       key={r.id}
-                      className="bg-white border border-gray-200 rounded-lg p-3 flex items-start justify-between"
+                      className="bg-white border border-stone-200 rounded-lg p-3 flex items-start justify-between shadow-sm"
                     >
                       <div>
                         <div className="flex items-center gap-2 mb-1">
-                          <span className="font-medium text-gray-900">
+                          <span className="font-medium text-stone-900">
                             {r.user_name}
                           </span>
                           <StarRating rating={r.rating} size="sm" />
                         </div>
-                        <p className="text-gray-700 text-sm">{r.comment}</p>
+                        <p className="text-stone-600 text-sm">{r.comment}</p>
                       </div>
                       <button
                         onClick={() => handleDeleteReview(r.id)}
-                        className="text-sm text-red-600 hover:underline cursor-pointer shrink-0 ml-4"
+                        className="text-sm text-red-500 hover:text-red-700 cursor-pointer shrink-0 ml-4 font-medium"
                       >
                         Delete
                       </button>
@@ -325,32 +325,32 @@ export default function AdminPage() {
 
       {/* Users Tab */}
       {activeTab === "users" && (
-        <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
+        <div className="bg-white border border-stone-200 rounded-lg overflow-hidden shadow-sm">
           <table className="w-full">
-            <thead className="bg-gray-50 border-b border-gray-200">
+            <thead className="bg-stone-50 border-b border-stone-200">
               <tr>
-                <th className="text-left text-sm font-medium text-gray-700 px-4 py-3">
+                <th className="text-left text-sm font-medium text-stone-600 px-4 py-3">
                   Name
                 </th>
-                <th className="text-left text-sm font-medium text-gray-700 px-4 py-3">
+                <th className="text-left text-sm font-medium text-stone-600 px-4 py-3">
                   Email
                 </th>
-                <th className="text-left text-sm font-medium text-gray-700 px-4 py-3">
+                <th className="text-left text-sm font-medium text-stone-600 px-4 py-3">
                   Role
                 </th>
               </tr>
             </thead>
             <tbody>
               {users.map((u) => (
-                <tr key={u.id} className="border-b border-gray-100 last:border-0">
-                  <td className="px-4 py-3 text-sm text-gray-900">{u.name}</td>
-                  <td className="px-4 py-3 text-sm text-gray-600">{u.email}</td>
+                <tr key={u.id} className="border-b border-stone-100 last:border-0">
+                  <td className="px-4 py-3 text-sm text-stone-900">{u.name}</td>
+                  <td className="px-4 py-3 text-sm text-stone-500">{u.email}</td>
                   <td className="px-4 py-3">
                     <span
                       className={`text-xs font-medium px-2 py-0.5 rounded-full ${
                         u.is_admin
-                          ? "bg-purple-100 text-purple-700"
-                          : "bg-gray-100 text-gray-600"
+                          ? "bg-indigo-100 text-indigo-700"
+                          : "bg-stone-100 text-stone-500"
                       }`}
                     >
                       {u.is_admin ? "Admin" : "User"}
