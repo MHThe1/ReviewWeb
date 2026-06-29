@@ -100,3 +100,28 @@ export async function updateReview(
 export async function deleteReview(id: number): Promise<void> {
   await api.delete(`/reviews/${id}`);
 }
+
+// Admin
+export async function adminCreateProduct(data: {
+  title: string;
+  description?: string;
+  image_url?: string;
+}): Promise<Product> {
+  const res = await api.post<Product>("/admin/products", data);
+  return res.data;
+}
+
+export async function adminDeleteProduct(id: number): Promise<void> {
+  await api.delete(`/admin/products/${id}`);
+}
+
+export async function adminDeleteReview(id: number): Promise<void> {
+  await api.delete(`/admin/reviews/${id}`);
+}
+
+export async function adminGetUsers(): Promise<
+  { id: number; name: string; email: string; is_admin: boolean; created_at: string }[]
+> {
+  const res = await api.get("/admin/users");
+  return res.data;
+}

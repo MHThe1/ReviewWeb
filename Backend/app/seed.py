@@ -3,7 +3,7 @@
 Run with: docker compose exec backend python -m app.seed
 """
 
-from app.database import SessionLocal, engine, Base
+from app.database import SessionLocal
 from app.models.user import User
 from app.models.product import Product
 from app.models.review import Review
@@ -11,7 +11,6 @@ from app.utils.auth import get_password_hash
 
 
 def seed():
-    Base.metadata.create_all(bind=engine)
     db = SessionLocal()
 
     try:
@@ -21,7 +20,7 @@ def seed():
 
         # Create users
         users = [
-            User(name="Alice Johnson", email="alice@example.com", password_hash=get_password_hash("password123")),
+            User(name="Alice Johnson", email="alice@example.com", password_hash=get_password_hash("password123"), is_admin=True),
             User(name="Bob Smith", email="bob@example.com", password_hash=get_password_hash("password123")),
             User(name="Carol Davis", email="carol@example.com", password_hash=get_password_hash("password123")),
             User(name="Dave Wilson", email="dave@example.com", password_hash=get_password_hash("password123")),

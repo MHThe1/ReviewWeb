@@ -18,6 +18,14 @@ export default function Header() {
             <div className="h-8 w-20 bg-gray-200 rounded animate-pulse" />
           ) : user ? (
             <>
+              {user.is_admin && (
+                <Link
+                  href="/admin"
+                  className="text-sm text-purple-600 hover:text-purple-800 font-medium transition-colors"
+                >
+                  Admin
+                </Link>
+              )}
               <span className="text-sm text-gray-600">
                 Hello, <span className="font-medium text-gray-900">{user.name}</span>
               </span>
