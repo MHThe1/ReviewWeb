@@ -4,9 +4,9 @@ A full-stack review platform where users can browse products, submit reviews, an
 
 ## Live Demo
 
-- **Frontend**: [https://your-frontend.vercel.app](https://your-frontend.vercel.app)
-- **Backend API**: [https://your-backend.onrender.com](https://your-backend.onrender.com)
-- **API Docs (Swagger)**: [https://your-backend.onrender.com/docs](https://your-backend.onrender.com/docs)
+- **Frontend**: [https://review-web-frontend.vercel.app](https://review-web-frontend.vercel.app)
+- **Backend API**: [https://reviewweb.onrender.com](https://reviewweb.onrender.com)
+- **API Docs (Swagger)**: [https://reviewweb.onrender.com/docs](https://reviewweb.onrender.com/docs)
 
 ## Tech Stack
 
