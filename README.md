@@ -25,6 +25,7 @@ A full-stack review platform where users can browse products, submit reviews, an
 - **Search & Filter** — Search products by name, filter by minimum rating
 - **Product Details** — View full product info and all user reviews
 - **Review System** — Submit, edit, and delete reviews (1–5 star rating)
+- **Admin Dashboard** — Manage catalog (create/delete products) and moderate reviews/users
 - **Authentication** — Register and login with JWT-based auth
 - **Responsive UI** — Mobile-first design with Tailwind CSS
 - **API Documentation** — Auto-generated Swagger/OpenAPI docs at `/docs`
@@ -109,7 +110,7 @@ docker compose exec backend python -m app.seed
 ```
 
 This creates sample data:
-- 4 test users (password: `password123`)
+- 4 test users (password: `password123`, includes admin account: `alice@example.com`)
 - 6 products
 - 13 reviews
 
@@ -145,6 +146,15 @@ This creates sample data:
 | PUT | `/api/reviews/{id}` | Update own review (protected) |
 | DELETE | `/api/reviews/{id}` | Delete own review (protected) |
 
+### Admin
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/api/admin/products` | Create product (admin protected) |
+| DELETE | `/api/admin/products/{id}` | Delete product (admin protected) |
+| DELETE | `/api/admin/reviews/{id}` | Delete any user review (admin protected) |
+| GET | `/api/admin/users` | List all users (admin protected) |
+
 ## Database Schema
 
 ### users
@@ -154,6 +164,7 @@ This creates sample data:
 | name | VARCHAR(100) | NOT NULL |
 | email | VARCHAR(255) | UNIQUE, NOT NULL, indexed |
 | password_hash | VARCHAR(255) | NOT NULL |
+| is_admin | BOOLEAN | DEFAULT false, NOT NULL |
 | created_at | TIMESTAMP WITH TZ | DEFAULT now() |
 
 ### products
