@@ -151,9 +151,12 @@ This creates sample data:
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | POST | `/api/admin/products` | Create product (admin protected) |
+| PUT | `/api/admin/products/{id}` | Update product details (admin protected) |
 | DELETE | `/api/admin/products/{id}` | Delete product (admin protected) |
 | DELETE | `/api/admin/reviews/{id}` | Delete any user review (admin protected) |
 | GET | `/api/admin/users` | List all users (admin protected) |
+| PUT | `/api/admin/users/{id}` | Update user details / role toggle (admin protected) |
+| DELETE | `/api/admin/users/{id}` | Delete user account (admin protected, prevents self-deletion) |
 
 ## Database Schema
 
@@ -215,6 +218,35 @@ docker compose exec backend pytest
 ```
 
 ## Deployment
+
+### Docker (Recommended)
+
+To quickly build, run, and scale the entire stack (Next.js, FastAPI, and PostgreSQL) in any containerized environment:
+
+1. **Set Production Credentials**:
+   Make a copy of `.env` and configure the JWT secret and live domain origins:
+   ```bash
+   JWT_SECRET_KEY=your-secure-production-key-here
+   CORS_ORIGINS=http://your-domain.com
+   NEXT_PUBLIC_API_URL=http://your-domain.com/api
+   ```
+
+2. **Build and Start Container Daemon**:
+   ```bash
+   docker compose up -d --build
+   ```
+
+3. **Initialize Database Schema & Seeds**:
+   ```bash
+   docker compose exec backend alembic upgrade head
+   docker compose exec backend python -m app.seed
+   ```
+
+4. **Check Status & Logs**:
+   ```bash
+   docker compose ps
+   docker compose logs -f
+   ```
 
 ### Backend (Render)
 

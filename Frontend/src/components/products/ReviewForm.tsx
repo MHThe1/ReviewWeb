@@ -2,7 +2,7 @@
 
 import { useState, FormEvent } from "react";
 import { createReview } from "@/services/api";
-import StarRating from "@/components/StarRating";
+import StarRating from "@/components/ui/StarRating";
 
 interface ReviewFormProps {
   productId: number;

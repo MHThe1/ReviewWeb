@@ -125,3 +125,31 @@ export async function adminGetUsers(): Promise<
   const res = await api.get("/admin/users");
   return res.data;
 }
+
+export async function adminUpdateProduct(
+  id: number,
+  data: {
+    title?: string;
+    description?: string;
+    image_url?: string;
+  }
+): Promise<Product> {
+  const res = await api.put<Product>(`/admin/products/${id}`, data);
+  return res.data;
+}
+
+export async function adminUpdateUser(
+  id: number,
+  data: {
+    name?: string;
+    email?: string;
+    is_admin?: boolean;
+  }
+): Promise<{ id: number; name: string; email: string; is_admin: boolean; created_at: string }> {
+  const res = await api.put(`/admin/users/${id}`, data);
+  return res.data;
+}
+
+export async function adminDeleteUser(id: number): Promise<void> {
+  await api.delete(`/admin/users/${id}`);
+}
