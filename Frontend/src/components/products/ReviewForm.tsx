@@ -3,6 +3,7 @@
 import { useState, FormEvent } from "react";
 import { createReview } from "@/services/api";
 import StarRating from "@/components/ui/StarRating";
+import { showToast } from "@/utils/toast";
 
 interface ReviewFormProps {
   productId: number;
@@ -19,6 +20,7 @@ export default function ReviewForm({ productId, onSuccess }: ReviewFormProps) {
     e.preventDefault();
     if (rating === 0) {
       setError("Please select a rating");
+      showToast.error("Please select a rating");
       return;
     }
 
@@ -27,11 +29,14 @@ export default function ReviewForm({ productId, onSuccess }: ReviewFormProps) {
 
     try {
       await createReview({ product_id: productId, rating, comment });
+      showToast.success("Review submitted successfully!");
       setRating(0);
       setComment("");
       onSuccess();
     } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : "Failed to submit review");
+      const message = err instanceof Error ? err.message : "Failed to submit review";
+      setError(message);
+      showToast.error(message);
     } finally {
       setSubmitting(false);
     }

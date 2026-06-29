@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
 import PasswordInput from "@/components/PasswordInput";
+import { showToast } from "@/utils/toast";
 
 export default function LoginPage() {
   const { login } = useAuth();
@@ -22,11 +23,13 @@ export default function LoginPage() {
 
     try {
       await login({ email, password });
+      showToast.success("Welcome back! Logged in successfully.");
       router.push("/");
     } catch (err: unknown) {
       const message =
         err instanceof Error ? err.message : "Login failed";
       setError(message);
+      showToast.error(message);
     } finally {
       setLoading(false);
     }

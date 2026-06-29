@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
 import PasswordInput from "@/components/PasswordInput";
+import { showToast } from "@/utils/toast";
 
 export default function RegisterPage() {
   const { register } = useAuth();
@@ -23,11 +24,13 @@ export default function RegisterPage() {
 
     try {
       await register({ name, email, password });
+      showToast.success("Welcome! Account created successfully.");
       router.push("/");
     } catch (err: unknown) {
       const message =
         err instanceof Error ? err.message : "Registration failed";
       setError(message);
+      showToast.error(message);
     } finally {
       setLoading(false);
     }

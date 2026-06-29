@@ -21,6 +21,7 @@ import EditUserModal from "@/components/admin/EditUserModal";
 import ReviewsConsoleModal from "@/components/admin/ReviewsConsoleModal";
 import AdminProductsTab from "@/components/admin/AdminProductsTab";
 import AdminUsersTab from "@/components/admin/AdminUsersTab";
+import { showToast } from "@/utils/toast";
 
 interface AdminUser {
   id: number;
@@ -95,20 +96,26 @@ export default function AdminPage() {
   }, [user, authLoading, router, fetchProducts, fetchUsers]);
 
   async function handleAddProduct(title: string, description: string, imageUrl: string) {
-    await adminCreateProduct({
-      title,
-      description: description || undefined,
-      image_url: imageUrl || undefined,
-    });
-    fetchProducts();
+    try {
+      await adminCreateProduct({
+        title,
+        description: description || undefined,
+        image_url: imageUrl || undefined,
+      });
+      showToast.success("Product created successfully!");
+      fetchProducts();
+    } catch (err: unknown) {
+      showToast.error(err instanceof Error ? err.message : "Failed to create product");
+    }
   }
 
   async function handleDeleteProduct(id: number) {
     try {
       await adminDeleteProduct(id);
+      showToast.success("Product deleted successfully.");
       fetchProducts();
     } catch (err: unknown) {
-      alert(err instanceof Error ? err.message : "Failed to delete");
+      showToast.error(err instanceof Error ? err.message : "Failed to delete product");
     }
   }
 
@@ -125,40 +132,52 @@ export default function AdminPage() {
   async function handleDeleteReview(reviewId: number) {
     try {
       await adminDeleteReview(reviewId);
+      showToast.success("Review deleted successfully.");
       if (selectedProduct) handleLoadReviews(selectedProduct);
       fetchProducts();
     } catch (err: unknown) {
-      alert(err instanceof Error ? err.message : "Failed to delete review");
+      showToast.error(err instanceof Error ? err.message : "Failed to delete review");
     }
   }
 
   async function handleDeleteUser(userId: number) {
     try {
       await adminDeleteUser(userId);
+      showToast.success("User deleted successfully.");
       fetchUsers();
     } catch (err: unknown) {
-      alert(err instanceof Error ? err.message : "Failed to delete user");
+      showToast.error(err instanceof Error ? err.message : "Failed to delete user");
     }
   }
 
   async function handleUpdateProduct(title: string, description: string, imageUrl: string) {
     if (!editingProduct) return;
-    await adminUpdateProduct(editingProduct.id, {
-      title,
-      description: description || undefined,
-      image_url: imageUrl || undefined,
-    });
-    fetchProducts();
+    try {
+      await adminUpdateProduct(editingProduct.id, {
+        title,
+        description: description || undefined,
+        image_url: imageUrl || undefined,
+      });
+      showToast.success("Product updated successfully!");
+      fetchProducts();
+    } catch (err: unknown) {
+      showToast.error(err instanceof Error ? err.message : "Failed to update product");
+    }
   }
 
   async function handleUpdateUser(name: string, email: string, isAdmin: boolean) {
     if (!editingUser) return;
-    await adminUpdateUser(editingUser.id, {
-      name,
-      email,
-      is_admin: isAdmin,
-    });
-    fetchUsers();
+    try {
+      await adminUpdateUser(editingUser.id, {
+        name,
+        email,
+        is_admin: isAdmin,
+      });
+      showToast.success("User updated successfully!");
+      fetchUsers();
+    } catch (err: unknown) {
+      showToast.error(err instanceof Error ? err.message : "Failed to update user");
+    }
   }
 
   if (authLoading || loading) {

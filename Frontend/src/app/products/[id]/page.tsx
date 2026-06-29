@@ -10,6 +10,7 @@ import StarRating from "@/components/ui/StarRating";
 import ReviewForm from "@/components/products/ReviewForm";
 import ConfirmModal from "@/components/ui/ConfirmModal";
 import ReviewCard from "@/components/products/ReviewCard";
+import { showToast } from "@/utils/toast";
 
 export default function ProductDetailsPage() {
   const { id } = useParams<{ id: string }>();
@@ -32,9 +33,10 @@ export default function ProductDetailsPage() {
     if (deletingReviewId === null) return;
     try {
       await deleteReview(deletingReviewId);
+      showToast.success("Review deleted successfully.");
       fetchProduct();
     } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : "Failed to delete review");
+      showToast.error(err instanceof Error ? err.message : "Failed to delete review");
     } finally {
       setDeletingReviewId(null);
     }

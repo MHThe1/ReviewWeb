@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { ReviewInProduct } from "@/types";
 import { updateReview } from "@/services/api";
 import StarRating from "@/components/ui/StarRating";
+import { showToast } from "@/utils/toast";
 
 interface ReviewCardProps {
   review: ReviewInProduct;
@@ -45,10 +46,13 @@ export default function ReviewCard({
     setError(null);
     try {
       await updateReview(review.id, { rating: editRating, comment: editComment });
+      showToast.success("Review updated successfully!");
       setEditing(false);
       onUpdated();
     } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : "Update failed");
+      const message = err instanceof Error ? err.message : "Update failed";
+      setError(message);
+      showToast.error(message);
     } finally {
       setSaving(false);
     }
