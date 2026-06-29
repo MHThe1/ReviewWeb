@@ -161,6 +161,9 @@ Open **`Backend/.env`** and update `DATABASE_URL` with your local PostgreSQL pas
 DATABASE_URL=postgresql://postgres:YOUR_PASSWORD@localhost:5432/review_db
 ```
 
+> ⚠️ **Special characters in your password?** URL-encode them — `@` → `%40`, `!` → `%21`, `#` → `%23`.
+> e.g. password `p@ss!` becomes `postgresql://postgres:p%40ss%21@localhost:5432/review_db`
+
 The other variables in `.env.example` have sensible defaults and don't need changing for local dev.
 
 ```bash

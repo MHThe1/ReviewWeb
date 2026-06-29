@@ -14,7 +14,9 @@ from app.models import User, Product, Review  # noqa: F401
 
 config = context.config
 settings = get_settings()
-config.set_main_option("sqlalchemy.url", settings.database_url)
+# configparser treats % as an interpolation character, so URL-encoded passwords
+# (e.g. %40 for @) must have % doubled to %% before being passed via set_main_option.
+config.set_main_option("sqlalchemy.url", settings.database_url.replace("%", "%%"))
 
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
@@ -35,11 +37,9 @@ def run_migrations_offline() -> None:
 
 
 def run_migrations_online() -> None:
-    connectable = engine_from_config(
-        config.get_section(config.config_ini_section, {}),
-        prefix="sqlalchemy.",
-        poolclass=pool.NullPool,
-    )
+    # Use the engine directly from settings to avoid configparser % interpolation issues
+    from sqlalchemy import create_engine
+    connectable = create_engine(settings.database_url, poolclass=pool.NullPool)
     with connectable.connect() as connection:
         context.configure(connection=connection, target_metadata=target_metadata)
         with context.begin_transaction():
