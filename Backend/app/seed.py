@@ -20,7 +20,7 @@ def seed():
 
         # Create users
         users = [
-            User(name="Admin", email="admin@reviewdibo.com", password_hash=get_password_hash("adminPassword123!"), is_admin=True),
+            User(name="Admin", email="admin@example.com", password_hash=get_password_hash("adminPassword123!"), is_admin=True),
             User(name="Alice Johnson", email="alice@example.com", password_hash=get_password_hash("password123")),
             User(name="Bob Smith", email="bob@example.com", password_hash=get_password_hash("password123")),
             User(name="Carol Davis", email="carol@example.com", password_hash=get_password_hash("password123")),
@@ -85,7 +85,7 @@ def seed():
         db.commit()
 
         print(f"Seeded {len(users)} users, {len(products)} products, {len(reviews)} reviews.")
-        print("Admin credentials: admin@reviewdibo.com / adminPassword123!")
+        print("Admin credentials: admin@example.com / adminPassword123!")
         print("Regular user credentials: alice@example.com / password123")
 
     finally:

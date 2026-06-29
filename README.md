@@ -197,7 +197,7 @@ npm run dev
 Frontend is running at **http://localhost:3000**
 
 > **Test credentials** (if you ran the seed):
-> Admin: `admin@reviewdibo.com` / `adminPassword123!`
+> Admin: `admin@example.com` / `adminPassword123!`
 > Regular user: `alice@example.com` / `password123`
 
 ---
