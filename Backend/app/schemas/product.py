@@ -10,6 +10,12 @@ class ProductCreate(BaseModel):
     image_url: Optional[str] = None
 
 
+class ProductUpdate(BaseModel):
+    title: Optional[str] = Field(None, min_length=1, max_length=200)
+    description: Optional[str] = None
+    image_url: Optional[str] = None
+
+
 class ReviewInProduct(BaseModel):
     id: int
     user_name: str
