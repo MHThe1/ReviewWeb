@@ -18,7 +18,7 @@ services:
 
   backend:
     build:
-      context: ./backend
+      context: ./Backend
       dockerfile: Dockerfile
     restart: unless-stopped
     ports:
@@ -30,14 +30,14 @@ services:
       JWT_EXPIRE_MINUTES: ${JWT_EXPIRE_MINUTES:-60}
       CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:3000}
     volumes:
-      - ./backend/app:/app/app
+      - ./Backend/app:/app/app
     depends_on:
       db:
         condition: service_healthy
 
   frontend:
     build:
-      context: ./frontend
+      context: ./Frontend
       dockerfile: Dockerfile
     restart: unless-stopped
     ports:
@@ -45,8 +45,8 @@ services:
     environment:
       NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://localhost:8000/api}
     volumes:
-      - ./frontend/src:/app/src
-      - ./frontend/public:/app/public
+      - ./Frontend/src:/app/src
+      - ./Frontend/public:/app/public
     depends_on:
       - backend
 

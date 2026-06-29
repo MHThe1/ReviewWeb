@@ -37,7 +37,7 @@ ReviewWeb/
 ├── docker-compose.yml
 ├── .env.example
 ├── .gitignore
-├── backend/
+├── Backend/
 │   ├── Dockerfile
 │   ├── entrypoint.sh
 │   ├── requirements.txt
@@ -56,7 +56,7 @@ ReviewWeb/
 │       ├── schemas/         # Pydantic request/response schemas
 │       ├── routers/         # API route handlers
 │       └── utils/           # Auth utilities
-└── frontend/
+└── Frontend/
     ├── Dockerfile
     ├── src/
     │   ├── app/             # Next.js App Router pages
