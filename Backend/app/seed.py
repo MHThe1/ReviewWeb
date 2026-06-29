@@ -20,7 +20,8 @@ def seed():
 
         # Create users
         users = [
-            User(name="Alice Johnson", email="alice@example.com", password_hash=get_password_hash("password123"), is_admin=True),
+            User(name="Admin", email="admin@reviewdibo.com", password_hash=get_password_hash("adminPassword123!"), is_admin=True),
+            User(name="Alice Johnson", email="alice@example.com", password_hash=get_password_hash("password123")),
             User(name="Bob Smith", email="bob@example.com", password_hash=get_password_hash("password123")),
             User(name="Carol Davis", email="carol@example.com", password_hash=get_password_hash("password123")),
             User(name="Dave Wilson", email="dave@example.com", password_hash=get_password_hash("password123")),
@@ -64,26 +65,28 @@ def seed():
         db.add_all(products)
         db.flush()
 
-        # Create reviews
+        # Create reviews (user_ids are now shifted by 1 — Admin is user 1)
         reviews = [
-            Review(product_id=1, user_id=1, rating=5, comment="Absolutely amazing laptop! Runs every game at max settings without breaking a sweat."),
-            Review(product_id=1, user_id=2, rating=4, comment="Great performance but runs a bit hot under heavy load. Otherwise excellent."),
-            Review(product_id=1, user_id=3, rating=5, comment="Best laptop I have ever owned. The display is stunning."),
-            Review(product_id=2, user_id=1, rating=5, comment="The noise cancellation is incredible. I can finally focus on my work."),
-            Review(product_id=2, user_id=4, rating=4, comment="Sound quality is superb. Comfortable for long listening sessions."),
-            Review(product_id=3, user_id=2, rating=4, comment="Accurate fitness tracking and the battery lasts forever. Love it."),
-            Review(product_id=3, user_id=3, rating=3, comment="Good watch but the app could be better. GPS takes a while to lock."),
-            Review(product_id=4, user_id=1, rating=5, comment="The picture quality is breathtaking. Colors are incredibly accurate."),
-            Review(product_id=4, user_id=4, rating=4, comment="Excellent monitor for both work and gaming. USB-C is a nice touch."),
-            Review(product_id=5, user_id=2, rating=5, comment="Perfect typing experience. The build quality is top-notch."),
-            Review(product_id=5, user_id=3, rating=4, comment="Great keyboard, just wish it had a wrist rest included."),
-            Review(product_id=6, user_id=1, rating=4, comment="Impressive sound for its size. Truly waterproof too!"),
-            Review(product_id=6, user_id=4, rating=5, comment="Best portable speaker I have owned. Battery lasts forever."),
+            Review(product_id=1, user_id=2, rating=5, comment="Absolutely amazing laptop! Runs every game at max settings without breaking a sweat."),
+            Review(product_id=1, user_id=3, rating=4, comment="Great performance but runs a bit hot under heavy load. Otherwise excellent."),
+            Review(product_id=1, user_id=4, rating=5, comment="Best laptop I have ever owned. The display is stunning."),
+            Review(product_id=2, user_id=2, rating=5, comment="The noise cancellation is incredible. I can finally focus on my work."),
+            Review(product_id=2, user_id=5, rating=4, comment="Sound quality is superb. Comfortable for long listening sessions."),
+            Review(product_id=3, user_id=3, rating=4, comment="Accurate fitness tracking and the battery lasts forever. Love it."),
+            Review(product_id=3, user_id=4, rating=3, comment="Good watch but the app could be better. GPS takes a while to lock."),
+            Review(product_id=4, user_id=2, rating=5, comment="The picture quality is breathtaking. Colors are incredibly accurate."),
+            Review(product_id=4, user_id=5, rating=4, comment="Excellent monitor for both work and gaming. USB-C is a nice touch."),
+            Review(product_id=5, user_id=3, rating=5, comment="Perfect typing experience. The build quality is top-notch."),
+            Review(product_id=5, user_id=4, rating=4, comment="Great keyboard, just wish it had a wrist rest included."),
+            Review(product_id=6, user_id=2, rating=4, comment="Impressive sound for its size. Truly waterproof too!"),
+            Review(product_id=6, user_id=5, rating=5, comment="Best portable speaker I have owned. Battery lasts forever."),
         ]
         db.add_all(reviews)
         db.commit()
 
         print(f"Seeded {len(users)} users, {len(products)} products, {len(reviews)} reviews.")
+        print("Admin credentials: admin@reviewdibo.com / adminPassword123!")
+        print("Regular user credentials: alice@example.com / password123")
 
     finally:
         db.close()

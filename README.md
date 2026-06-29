@@ -110,7 +110,7 @@ docker compose exec backend python -m app.seed
 ```
 
 This creates sample data:
-- 4 test users (password: `password123`, includes admin account: `alice@example.com`)
+- 5 users (includes a dedicated admin account — see credentials below)
 - 6 products
 - 13 reviews
 
@@ -118,6 +118,86 @@ This creates sample data:
 
 - **Frontend**: [http://localhost:3000](http://localhost:3000)
 - **API Docs**: [http://localhost:8000/docs](http://localhost:8000/docs)
+
+---
+
+## Running Without Docker
+
+If you don't have Docker, you can run each service manually. You'll need **Python 3.11+**, **Node.js 18+**, and **PostgreSQL** installed.
+
+> **Note on environment files:** There is a single `.env.example` at the project root. For local development without Docker, you'll create separate env files inside `Backend/` and `Frontend/` as described below.
+
+### Step 1 — PostgreSQL setup
+
+Create a database. In `psql` or pgAdmin run:
+
+```sql
+CREATE DATABASE review_db;
+```
+
+### Step 2 — Backend (FastAPI)
+
+```bash
+cd Backend
+
+# Create and activate a virtual environment
+python -m venv venv
+
+# Windows:
+venv\Scripts\activate
+# macOS / Linux:
+source venv/bin/activate
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Copy the backend env template (already scoped for local use)
+cp .env.example .env
+```
+
+Open **`Backend/.env`** and update `DATABASE_URL` with your local PostgreSQL password:
+
+```env
+DATABASE_URL=postgresql://postgres:YOUR_PASSWORD@localhost:5432/review_db
+```
+
+The other variables in `.env.example` have sensible defaults and don't need changing for local dev.
+
+```bash
+# Apply database migrations (creates all tables)
+alembic upgrade head
+
+# (Optional) Seed sample data
+python -m app.seed
+
+# Start the server
+uvicorn app.main:app --reload --port 8000
+```
+
+Backend is running at **http://localhost:8000** — Swagger docs at **http://localhost:8000/docs**
+
+### Step 3 — Frontend (Next.js)
+
+```bash
+cd Frontend
+
+# Install dependencies
+npm install
+
+# Copy the frontend env template
+cp .env.local.example .env.local
+
+# Start the dev server
+npm run dev
+```
+
+Frontend is running at **http://localhost:3000**
+
+> **Test credentials** (if you ran the seed):
+> Admin: `admin@reviewdibo.com` / `adminPassword123!`
+> Regular user: `alice@example.com` / `password123`
+
+---
 
 ## API Endpoints
 
