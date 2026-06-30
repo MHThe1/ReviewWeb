@@ -78,8 +78,8 @@ ReviewWeb/
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/your-username/review-platform.git
-cd review-platform
+git clone https://github.com/mhthe1/ReviewWeb.git
+cd ReviewWeb
 ```
 
 ### 2. Create environment file
